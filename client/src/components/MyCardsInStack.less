@@ -1,0 +1,49 @@
+.MyCardsInStack {
+  width: 150px;
+  height: 200px;
+
+  .wrap {
+    width: 150px;
+    height: 200px;
+    background: #fff;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 50px;
+      overflow: hidden;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 6px 0 -2px #f6f6f6, 0 7px 1px -2px rgba(0, 0, 0, 0.2), 0 12px 0 -4px #f6f6f6, 0 13px 2px -4px rgba(0, 0, 0, 0.2);
+    }
+
+    .num {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      bottom: -32px;
+      left: 0;
+    }
+  }
+}
+
+.CardsSelectModal {
+  .result {
+    margin-top: 20px;
+  }
+
+  // .previewCards {
+  //   margin-top: 20px;
+  //   display: flex;
+  //   overflow-x: scroll;
+  //   background: #efefef;
+  //   padding: 20px;
+  //   box-sizing: content-box;
+
+  //   .card {
+  //     flex-shrink: 0;
+  //     margin-right: 10px;
+  //   }
+  // }
+}

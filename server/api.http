@@ -1,0 +1,16 @@
+@apiBaseUrl = http://127.0.0.1:10080/api
+
+
+### 无凭证登录
+POST {{apiBaseUrl}}/login HTTP/1.1
+content-type: application/json
+
+{}
+
+### 有凭证登录
+POST {{apiBaseUrl}}/login HTTP/1.1
+content-type: application/json
+
+{
+  "stub": "Bc4Af8D0-Edf4-CD1e-2793-fEBd6ADCA41f"
+}

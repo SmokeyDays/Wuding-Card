@@ -1,0 +1,23 @@
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+:global {
+  .my-form {
+    .ant-form-item {
+      display: flex;
+      .ant-form-item-label {
+        width: 100px;
+        flex-shrink: 0;
+      }
+      .ant-form-item-control-wrapper {
+        flex: 1;
+      }
+    }
+  
+  }
+}

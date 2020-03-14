@@ -1,0 +1,62 @@
+.MyCardsInBattlefield {
+  position: relative;
+
+  .cardsRow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    &.firstRow {
+      z-index: 1;
+    }
+
+    &.secondRow {
+      margin-top: -135px;
+      
+    }
+
+    .item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 200ms;
+      .card {
+        transition: all 200ms;
+        box-shadow: -1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+      }
+      .info {
+        z-index: 999;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 200px;
+        display: none;
+        box-shadow: -1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+        &.show {
+          display: block;
+        }
+      }
+    }
+
+
+
+  }
+
+  .menus {
+    position: relative;
+    z-index: 999;
+  }
+}
+
+
+.TagModal {
+  .row {
+    display: flex;
+    .label {
+      flex-shrink: 0;
+      width: 120px;
+      font-weight: bold;
+    }
+    margin-bottom: 24px;
+  }
+}

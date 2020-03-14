@@ -4,15 +4,19 @@ import { Menu, Item, MenuProvider } from 'react-contexify';
 import { Modal, Button, Select, InputNumber } from 'antd';
 import _ from 'lodash';
 import classNames from 'classnames';
+import Card from './Card';
 import styles from './MyCardsInStack.less';
 
 
-function CardsSelectModal({
+const CardsSelectModal = connect(state => ({
+  cardState: state.card
+}))(({
+  cardState,
   cards,
   visible,
   onCancel,
   handleMoveCards,
-}) {
+}) => {
   const [num, SET_num] = useState(1);
   const [filterName, SET_filterName] = useState('');
   const [filterType, SET_filterType] = useState('');
@@ -41,14 +45,27 @@ function CardsSelectModal({
         <Button
           key="1"
           type="primary"
-          disabled={filteredCards.length === 0}
-          onClick={() => handleMoveCards(filteredCards, 'myCardsInHand')}
+          disabled={
+            filteredCards.length === 0 || filteredCards.length + cardState.myCardsInHand.length > cardState.myCardsInHandMax
+          }
+          onClick={() => handleMoveCards(
+            filteredCards.map(item => ({
+              ...item,
+              visible: !item.visible ? 'MYSELF' : item.visible,
+            })),
+            'myCardsInHand',
+          )}
         >移至手牌</Button>,
         <Button
           key="2"
           type="primary"
-          disabled={filteredCards.length === 0}
-          onClick={() => handleMoveCards(filteredCards, 'myCardsInBattlefield')}
+          disabled={filteredCards.length === 0 || filteredCards.length + cardState.myCardsInBattlefield.length > cardState.myCardsInBattlefieldMax}
+          onClick={() => handleMoveCards(
+            filteredCards.map(item => ({
+              ...item,
+              visible: !item.visible ? 'MYSELF' : item.visible,
+            })),
+            'myCardsInBattlefield')}
         >移至战场</Button>,
         <Button
           key="3"
@@ -99,13 +116,15 @@ function CardsSelectModal({
       </div>
     </Modal>
   );
-}
+})
 
-function MyCardsInStack({
+const MyCardsInStack = connect(state => ({
+  cardState: state.card
+}))(({
   className,
   cardState,
   dispatch,
-}) {
+}) => {
   const { myCardsInStack } = cardState;
   const [cardsSelectModalVisible, SET_cardsSelectModalVisible] = useState(false);
 
@@ -119,13 +138,32 @@ function MyCardsInStack({
     dispatch({ type: 'card/randomSortMyCardsInStack' });
   }
 
-  const handleMoveCards = (cards, way) => {
-    dispatch({ type: 'card/moveMyCardsInStackCards', cards, way });
+  const handleMoveCards = (cards, toSpace) => {
+    dispatch({
+      type: 'card/moveMyCards',
+      cards,
+      fromSpace: 'myCardsInStack',
+      toSpace,
+    });
     SET_cardsSelectModalVisible(false);
   }
+
+  const numClassName = myCardsInStack.length > 2 ? styles.numGt3 : styles[`numEq${myCardsInStack.length}`];
+
   return <div className={classNames(styles.MyCardsInStack, className)}>
     <MenuProvider id="myCardsInStack">
-      <div className={styles.wrap}>
+      <div className={classNames(styles.wrap, numClassName)}>
+        {_.reverse([...myCardsInStack]).map((item, index) => (
+          <div
+            className={styles.card}
+            key={item._id}
+            style={{
+              left: 0.5 * index,
+            }}
+          >
+            <Card card={item} />
+          </div>
+        ))}
         <div className={styles.num}>{myCardsInStack.length} 张</div>
       </div>
     </MenuProvider>
@@ -141,8 +179,6 @@ function MyCardsInStack({
       handleMoveCards={handleMoveCards}
     />
   </div>
-}
+})
 
-export default connect(state => ({
-  cardState: state.card
-}))(MyCardsInStack);
+export default MyCardsInStack;

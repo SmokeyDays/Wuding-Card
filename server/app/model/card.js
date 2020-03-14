@@ -46,6 +46,7 @@ module.exports = app => {
       type: String,
     }, // 耐力
   });
+
   return mongoose.model('Card', Card);
 };
 

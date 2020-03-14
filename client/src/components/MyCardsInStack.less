@@ -1,22 +1,44 @@
 .MyCardsInStack {
   width: 150px;
-  height: 200px;
+  height: 202px;
 
   .wrap {
     width: 150px;
-    height: 200px;
-    background: #fff;
+    height: 202px;
+    // background: #fff;
     position: relative;
-    &:before {
-      content: '';
+    .card {
       position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      height: 50px;
-      overflow: hidden;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 6px 0 -2px #f6f6f6, 0 7px 1px -2px rgba(0, 0, 0, 0.2), 0 12px 0 -4px #f6f6f6, 0 13px 2px -4px rgba(0, 0, 0, 0.2);
     }
+    // &:before {
+    //   content: '';
+    //   position: absolute;
+    //   right: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   height: 50px;
+    //   overflow: hidden;
+      
+    // }
+    // &.numGt3 {
+    //   &:before {
+    //     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 6px 0 -2px #f6f6f6, 0 7px 1px -2px rgba(0, 0, 0, 0.2), 0 12px 0 -4px #f6f6f6, 0 13px 2px -4px rgba(0, 0, 0, 0.2);
+    //   }
+    // }
+    // &.numEq2 {
+    //   &:before {
+    //     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 6px 0 -2px #f6f6f6, 0 7px 1px -2px rgba(0, 0, 0, 0.2);
+    //   }
+    // }
+    // &.numEq1 {
+    //   &:before {
+    //     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    //   }
+    // }
+    // &.numEq0 {
+    //   background: transparent;
+    //   border: 1px solid #aaa;
+    // }
 
     .num {
       position: absolute;
@@ -24,6 +46,7 @@
       text-align: center;
       bottom: -32px;
       left: 0;
+      
     }
   }
 }

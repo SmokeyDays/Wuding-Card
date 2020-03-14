@@ -1,9 +1,18 @@
-
 :global {
   @import '../node_modules/react-contexify/dist/ReactContexify.min.css';
+
+  .react-contexify{
+    min-width: 160px;
+    border-radius: 2px;
+    &__item__content {
+      padding: 3px 12px;
+    }
+  }
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -16,14 +25,16 @@ body {
   .my-form {
     .ant-form-item {
       display: flex;
+
       .ant-form-item-label {
         width: 100px;
         flex-shrink: 0;
       }
+
       .ant-form-item-control-wrapper {
         flex: 1;
       }
     }
-  
+
   }
 }

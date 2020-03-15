@@ -22,7 +22,7 @@ function CardsRow({ userCards, className, style, onShowInfo }) {
   }
 
   const cardsTransform = Array.from({ length: userCards.length }, (v, index) => ({
-    x: 70 * index + 5
+    x: 65 * index + 5
   })); // 卡片们的transform数据数组
   return (<div
     className={classNames(styles.cardsRow, className)}
@@ -46,7 +46,7 @@ function CardsRow({ userCards, className, style, onShowInfo }) {
             <Card
               card={item}
               key={item._id}
-              width={70}
+              width={65}
               viewType="mini"
             />
           </MenuProvider>

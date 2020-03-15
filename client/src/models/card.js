@@ -10,7 +10,7 @@ export default {
     myCardsInCemetery: [], // 墓地
     myCardsInGui: [], // 归墟
     myCardsInHandMax: 60,
-    myCardsInBattlefieldMax: 13,
+    myCardsInBattlefieldMax: 15,
   },
   reducers: {
     updateState(state, action) {

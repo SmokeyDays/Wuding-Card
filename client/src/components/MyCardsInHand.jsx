@@ -24,16 +24,17 @@ function CardsRow({ userCards, className, style, rowWidth, onShowInfo }) {
   const cardsTransform = Array.from({ length: userCards.length }, (v, index) => ({
     x: Math.round(rowWidth / 30 * index)
   })); // 卡片们的transform数据数组
-  let dlt = 0;
+
+  let pianyi = 0;
   return (<div
     className={classNames(styles.cardsRow, className)}
     onMouseLeave={(e) => onMouseOverCard(e, Infinity)}
     style={style}
   >
     {userCards.map((item, index) => {
-      const x = cardsTransform[index].x + dlt;
-      if(item.card.name.length > 6){
-        dlt += 18;
+      const x = cardsTransform[index].x + pianyi;
+      if(item.card.name.length > 6) {
+        pianyi += 12;
       }
       return (<div
         key={item._id}
@@ -49,7 +50,7 @@ function CardsRow({ userCards, className, style, rowWidth, onShowInfo }) {
             <Card
               card={item}
               key={item._id}
-              width={150}
+              width={130}
               viewType="side"
             />
           </MenuProvider>

@@ -15,14 +15,14 @@ function CardsRow({ userCards, className, style, onShowInfo }) {
     onShowInfo({
       card: userCards[index],
       style: {
-        left,
-        top: top + 126,
+        left: left + 100,
+        top,
       }
     });
   }
 
   const cardsTransform = Array.from({ length: userCards.length }, (v, index) => ({
-    x: 100 * index + 5
+    x: 70 * index + 5
   })); // 卡片们的transform数据数组
   return (<div
     className={classNames(styles.cardsRow, className)}
@@ -46,7 +46,7 @@ function CardsRow({ userCards, className, style, onShowInfo }) {
             <Card
               card={item}
               key={item._id}
-              width={90}
+              width={70}
               viewType="mini"
             />
           </MenuProvider>
@@ -106,11 +106,11 @@ function MyCardsInBattlefield({
   const [cardInfoProps, SET_cardInfoProps] = useState({});
   const [tagModalCard, SET_tagModalCard] = useState(null);
   const myCardsInBattlefield = cardState.myCardsInBattlefield//.slice(0, sliderValue)
-  const firstRow = myCardsInBattlefield.slice(0, 6);
-  const secondRow = myCardsInBattlefield.slice(6, 11);
+  const firstRow = myCardsInBattlefield;
+  // const secondRow = []; //myCardsInBattlefield.slice(6, 11);
 
-  const firstRowWidth = firstRow.length * 100; // 展开宽度
-  const secondRowWidth = secondRow.length * 100; // 展开宽度
+  const firstRowWidth = firstRow.length * 70; // 展开宽度
+  // const secondRowWidth = secondRow.length * 100; // 展开宽度
 
   // 设置卡片可见状态
   const setVisible = (_id, visible) => {
@@ -145,7 +145,7 @@ function MyCardsInBattlefield({
       {/* 第一排 */}
       {firstRow.length > 0 && (<CardsRow className={styles.firstRow} style={{ width: firstRowWidth, marginLeft: -firstRowWidth / 2 }} userCards={firstRow} onShowInfo={SET_cardInfoProps} />)}
       {/* 第二排 */}
-      {secondRow.length > 0 && (<CardsRow className={styles.secondRow} style={{ width: secondRowWidth, marginLeft: -secondRowWidth / 2 }} userCards={secondRow} onShowInfo={SET_cardInfoProps} />)}
+      {/* {secondRow.length > 0 && (<CardsRow className={styles.secondRow} style={{ width: secondRowWidth, marginLeft: -secondRowWidth / 2 }} userCards={secondRow} onShowInfo={SET_cardInfoProps} />)} */}
       {/* 卡片信息 */}
       <CardInfo {...cardInfoProps} />
       <TagModal

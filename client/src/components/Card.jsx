@@ -23,7 +23,7 @@ function FullCard({ card, width, height, bgColor, color }) {
       {/* 名称 */}
       <Text
         text={card.card.name}
-        // fontFamily="STSong"
+        fontFamily="STSong"
         fontStyle="bold"
         fill={color}
         width={nameFontSize}
@@ -104,10 +104,10 @@ function FullCard({ card, width, height, bgColor, color }) {
 
 function MiniCard({ card, width, height }) {
 
-  const nameFontSize = 14
-  const visibleSize = 14
-  const tagCircleRadius = 15
-  const horizontalSize = [30, 20]
+  const nameFontSize = Math.round(width * 0.18)
+  const visibleSize = Math.round(width * 0.14)
+  const tagCircleRadius = Math.round(width * 0.14)
+  const horizontalSize = [width * 0.3, width * 0.2]
 
   return (
 
@@ -145,16 +145,16 @@ function MiniCard({ card, width, height }) {
         fill='#36a852'
         cornerRadius={4}
         x={width * 0.05}
-        y={width * 0.5 + horizontalSize[1] /4}
+        y={width * 0.6 + horizontalSize[1] /4}
         width={horizontalSize[0]}
         height={horizontalSize[1]}
       /> : null}
       {card.horizontal ? <Text
-        text="横置"
+        text="横"
         fill='#fff'
         fontSize={10}
         x={width * 0.05}
-        y={width * 0.5 + horizontalSize[1] /4}
+        y={width * 0.6 + horizontalSize[1] /4}
         width={horizontalSize[0]}
         height={horizontalSize[1]}
         align='center'
@@ -165,7 +165,7 @@ function MiniCard({ card, width, height }) {
         fill='#ff4d4f'
         radius={tagCircleRadius}
         x={width * 0.95 - tagCircleRadius}
-        y={width * 0.5 + tagCircleRadius}
+        y={width * 0.6 + tagCircleRadius}
       /> : null}
       {card.tag ? <Text
         fontSize={nameFontSize}
@@ -174,7 +174,7 @@ function MiniCard({ card, width, height }) {
         verticalAlign='middle'
         text={card.tag}
         x={width * 0.95 - tagCircleRadius * 2}
-        y={width * 0.5}
+        y={width * 0.6}
         width={tagCircleRadius * 2}
         height={tagCircleRadius * 2}
       /> : null}
@@ -197,12 +197,12 @@ function SideCard({ card, width, height }) {
       />
       {/* 名称 */}
       <Text
-        text={card.card.name.slice(0,6)}
+        text={card.card.name.slice(0, 6)}
         fontFamily="STSong"
         fontStyle="bold"
         fill="#000"
         width={nameFontSize * 1.2}
-        fontSize={card.card.name.length<=6?nameFontSize:nameFontSize}
+        fontSize={nameFontSize}
         x={width * 0.05}
         y={card.visible === 'EVERYONE' ? width * 0.05 + nameFontSize :width * 0.05}
       />

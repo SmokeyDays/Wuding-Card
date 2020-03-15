@@ -161,7 +161,7 @@ const MyCardsInStack = connect(state => ({
               left: 0.5 * index,
             }}
           >
-            <Card card={item} />
+            <Card card={item} width={100} />
           </div>
         ))}
         <div className={styles.num}>{myCardsInStack.length} 张</div>

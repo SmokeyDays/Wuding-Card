@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { Stage, Layer, Group, Rect, Text, Circle } from 'react-konva';
+import { Stage, Layer, Group, Rect, Text, Circle, Image } from 'react-konva';
 import styles from './Card.less';
+// import img8 from '../assets/logo/8万物.png';
 
 function FullCard({ card, width, height, bgColor, color }) {
   const otherTextStyle = {
@@ -108,7 +109,8 @@ function MiniCard({ card, width, height }) {
   const visibleSize = Math.round(width * 0.14)
   const tagCircleRadius = Math.round(width * 0.14)
   const horizontalSize = [width * 0.3, width * 0.2]
-
+  // const imgU8 = new window.Image();
+  // imgU8.src = require('../assets/logo/8万物.png');
   return (
 
     <Group >
@@ -140,6 +142,15 @@ function MiniCard({ card, width, height }) {
         y={height - width * 0.05 - nameFontSize}
       />}
       
+      {/*类型*/}
+      {/* {card.card.type ? <Image
+        source={imgU8}
+        width={width * 0.1}
+        height={height * 0.1}
+        x={width * 0.65}
+        y={height - width * 0.05 - nameFontSize}
+        alt="test"
+      /> : null} */}
 
       {card.horizontal ? <Rect
         fill='#36a852'

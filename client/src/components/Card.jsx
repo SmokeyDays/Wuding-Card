@@ -27,7 +27,7 @@ function FullCard({ card, width, height, bgColor, color }) {
         fontFamily="STSong"
         fontStyle="bold"
         fill={color}
-        width={nameFontSize}
+        width={nameFontSize * 1.2}
         fontSize={nameFontSize}
         x={width * 0.05}
         y={width * 0.05}

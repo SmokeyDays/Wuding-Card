@@ -4,7 +4,7 @@
   .table {
     width: 100%;
     height: 100%;
-    background:#215f35;
+    background:#53382c; //原为215f35
     color: #fff;
     position: relative;
     overflow: hidden;
@@ -22,7 +22,7 @@
       position: absolute;
       left: 50%;
       bottom: -100px;
-      height: 202px;
+      height: 212px;
     }
     .myCardsInBattlefield {
       position: absolute;
@@ -30,11 +30,21 @@
       bottom: 105px;
       height: 202px;
     }
-    // TODO: 删除
-    .roll {
+    .MyCharInfo {
       position: absolute;
-      left: 50%;
-      top: 200px;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: 22px;
+      z-index: 9999;
+    }
+    .OppositeCharInfo {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      height: 22px;
+      z-index: 9999;
     }
   }
 }

@@ -23,11 +23,25 @@ module.exports = class MainController extends Controller {
       socketId: ctx.socket.id,
     });
   }
-  async roll() {
+  async changeHealth() {
     const { ctx } = this;
-    const { roomId, roll } = ctx.args[0];
-    await ctx.socket.to(roomId).broadcast.emit('roll-by-opposite', {
-      roll,
+    const { roomId, health } = ctx.args[0];
+    await ctx.socket.to(roomId).broadcast.emit('changeHealth-by-opposite', {
+      health,
+    });
+  }
+  async changeLevel() {
+    const { ctx } = this;
+    const { roomId, level } = ctx.args[0];
+    await ctx.socket.to(roomId).broadcast.emit('changeLevel-by-opposite', {
+      level,
+    });
+  }
+  async changeMana() {
+    const { ctx } = this;
+    const { roomId, mana } = ctx.args[0];
+    await ctx.socket.to(roomId).broadcast.emit('changeMana-by-opposite', {
+      mana,
     });
   }
 };

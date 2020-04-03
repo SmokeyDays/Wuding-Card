@@ -17,8 +17,8 @@ function MyHealthInfo({
   return <div className={classNames(styles.MyCharInfo, className)}>
     <div style={{position: "absolute",bottom: "20px"}}>
       <Button.Group>
-        <Button onClick={() => changeHealth(1)}>+</Button>
-        <Button onClick={() => changeHealth(-1)}>-</Button>
+        <Button className={styles.MyHealthBTN} onClick={() => changeHealth(1)}>+</Button>
+        <Button className={styles.MyHealthBTN} onClick={() => changeHealth(-1)}>-</Button>
       </Button.Group>
     </div>
     <div style={{"background-color": "#666666",height: "22px",width: "50%",position: "absolute",bottom: "0px",left: "0px"}}>

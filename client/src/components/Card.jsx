@@ -108,12 +108,7 @@ function MiniCard({ card, width, height, cardLogos }) {
   const visibleSize = Math.round(width * 0.14)
   const tagCircleRadius = Math.round(width * 0.14)
   const horizontalSize = [width * 0.3, width * 0.2]
-  const typeLogo = cardLogos[
-    card.card.type === "法器" ?
-     (card.card.attack > 0 ?
-      (card.card.defense > 0 ? "法器" : "攻击")
-      : (card.card.defense > 0 ? "防御" : "法器")) :
-    card.card.type];
+  const typeLogo = cardLogos[card.card.type];
 
   return (
 
@@ -153,7 +148,7 @@ function MiniCard({ card, width, height, cardLogos }) {
         height={width * 0.3}
         x={width * 0.65}
         y={height - width * 0.35}
-        alt={card.card.type}
+        alt="test"
       /> : null}
 
       {card.horizontal ? <Rect

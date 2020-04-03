@@ -9,8 +9,8 @@ function OppositeHealthInfo({
 }) {
   const wid=charState.oppositeHealth*10;
   return <div className={classNames(styles.OppositeCharInfo, className)}>
-    <div onClick={() => changeHealth(-1)} style={{"background-color": "#666666",height: "22px",width: "50%",position: "absolute",bottom: "0px",left: "0px"}}>
-      <div onClick={() => changeHealth(1)} style={{"background-color": "#FF0000",width: wid+"%",height: "inherit",position: "absolute",right: "0px",bottom: "0px","text-align": "right"}} className="iconfont icon-fire"></div>
+    <div style={{"background-color": "#666666",height: "22px",width: "50%",position: "absolute",bottom: "0px",left: "0px"}}>
+      <div style={{"background-color": "#FF0000",width: wid+"%",height: "inherit",position: "absolute",right: "0px",bottom: "0px","text-align": "right"}} className="iconfont icon-fire"></div>
       <p style={{"z-index": "10000",position: "absolute","color": "#FFFFFF"}}>命火: {charState.oppositeHealth || '0'}</p>
     </div>
 

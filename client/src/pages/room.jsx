@@ -2,6 +2,7 @@ import { connect } from 'dva';
 import MyCardsInStack from '@/components/MyCardsInStack';
 import MyCardsInHand from '@/components/MyCardsInHand';
 import MyCardsInBattlefield from '@/components/MyCardsInBattlefield';
+import Roll from '@/components/Roll';
 import styles from './room.less';
 
 function Room({
@@ -17,7 +18,7 @@ function Room({
         <MyCardsInStack className={styles.myCardsInStack} />
         <MyCardsInHand className={styles.myCardsInHand} />
         <MyCardsInBattlefield className={styles.myCardsInBattlefield} />
-        
+        <Roll className={styles.roll} />
       </div>
     </div>
   )

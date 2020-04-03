@@ -23,4 +23,11 @@ module.exports = class MainController extends Controller {
       socketId: ctx.socket.id,
     });
   }
+  async roll() {
+    const { ctx } = this;
+    const { roomId, roll } = ctx.args[0];
+    await ctx.socket.to(roomId).broadcast.emit('roll-by-opposite', {
+      roll,
+    });
+  }
 };

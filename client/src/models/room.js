@@ -32,10 +32,12 @@ export default {
       history.listen(({ pathname, query }) => {
         if (pathname === '/') {
           dispatch({ type: 'fetchRooms' });
+          window.g_roomId = null;
         }
         if (pathname === '/room') {
           const { roomId, action } = query;
           window.g_socket.emit('join-room', { roomId, action });
+          window.g_roomId = roomId;
           window.g_socket.on('someone-joined-room', (data) => {
 
           });

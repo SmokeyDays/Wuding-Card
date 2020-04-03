@@ -1,13 +1,30 @@
 .MyCharInfo {
-   :global {
-    .ant-btn {
-        background-color: red;
-        color: #ffffff !important;
-    }
-  }
-  
   width: 100%;
   text-align: center;
+  :global {
+    .ant-btn:hover,
+    .ant-btn:active {
+      color: #000000;
+      background-color: #fff;
+      border-color: #000000;
+    }
+  }
+  .MyHealthBTN {
+    background-color: rgb(255, 115, 115);
+    color: #ffffff;
+    height: 40px;
+    z-index: 10000;
+  }
+  .MyLevelBTN {
+    background-color: rgb(115, 115, 255);
+    color: #ffffff;
+    z-index: 10000;
+  }
+  .MyManaBTN {
+    background-color: rgb(115, 255, 255);
+    color: #ffffff;
+    z-index: 10000;
+  }
   div {
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }

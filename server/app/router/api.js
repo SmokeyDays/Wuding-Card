@@ -13,4 +13,5 @@ module.exports = app => {
   apiRouter.post('/room/list', apiController.room.roomList); // 房间列表
   apiRouter.post('/room/create', apiController.room.create); // 房间列表
   apiRouter.post('/card/my-card-groups', mustAuth, apiController.card.myCardGroups); // 卡组列表
+  apiRouter.post('/card/card-infos', apiController.card.cardInfos); // 卡片信息
 };

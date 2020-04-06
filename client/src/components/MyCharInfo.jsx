@@ -11,19 +11,19 @@ function MyHealthInfo({
   dispatch,
 }) {
   const changeHealth = (diff) => {
-    dispatch({ type: 'charInfo/changeHealth' ,diff});
+    dispatch({ type: 'charInfo/changeHealth', diff });
   }
-  const wid=charState.myHealth*10;
+  const wid = charState.myHealth * 10;
   return <div className={classNames(styles.MyCharInfo, className)}>
-    <div style={{position: "absolute",bottom: "23px"}}>
+    <div style={{ position: "absolute", bottom: "23px" }}>
       <Button.Group>
         <Button className={styles.MyHealthBTN} onClick={() => changeHealth(1)}>+</Button>
         <Button className={styles.MyHealthBTN} onClick={() => changeHealth(-1)}>-</Button>
       </Button.Group>
     </div>
-    <div style={{"background-color": "#666666",height: "22px",width: "50%",position: "absolute",bottom: "0px",left: "0px"}}>
-      <div className={styles.bar} style={{"background-color": "#FF0000",width: wid+"%",height: "inherit",position: "absolute",right: "0px",bottom: "0px","text-align": "right"}} className="iconfont icon-fire"></div>
-      <p style={{"z-index": "10000",position: "absolute","color": "#FFFFFF"}}>命火: {charState.myHealth || '0'}</p>
+    <div style={{ backgroundColor: "#666666", height: "22px", width: "50%", position: "absolute", bottom: "0px", left: "0px" }}>
+      <div className={styles.bar} style={{ backgroundColor: "#FF0000", width: wid + "%", height: "inherit", position: "absolute", right: "0px", bottom: "0px", textAlign: "right" }} className="iconfont icon-fire"></div>
+      <p style={{ zIndex: "10000", position: "absolute", color: "#FFFFFF" }}>命火: {charState.myHealth || '0'}</p>
     </div>
 
   </div>
@@ -35,19 +35,19 @@ function MyLevelInfo({
   dispatch,
 }) {
   const changeLevel = (diff) => {
-    dispatch({ type: 'charInfo/changeLevel' ,diff});
+    dispatch({ type: 'charInfo/changeLevel', diff });
   }
-  const wid=charState.myLevel*10;
+  const wid = charState.myLevel * 10;
   return <div className={classNames(styles.MyCharInfo, className)}>
-    <div style={{position: "absolute",bottom: "57px",right: "0px"}}>
+    <div style={{ position: "absolute", bottom: "57px", right: "0px" }}>
       <Button.Group>
         <Button className={styles.MyLevelBTN} onClick={() => changeLevel(1)}>+</Button>
         <Button className={styles.MyLevelBTN} onClick={() => changeLevel(-1)}>-</Button>
       </Button.Group>
     </div>
-    <div style={{"background-color": "#666666",height: "11px",width: "50%",position: "absolute",top: "0px",right: "0px"}}>
-      <div className={styles.bar} style={{"background-color": "#0000C6",width: wid+"%",height: "inherit",position: "absolute",left: "0px",bottom: "0px","text-align": "left"}}></div>
-      <p style={{"z-index": "10000",position: "absolute",bottom: "-10px",right: "0px","color": "#FFFFFF","font-size": "9px"}}>修为: {charState.myLevel || '0'}</p>
+    <div style={{ backgroundColor: "#666666", height: "11px", width: "50%", position: "absolute", top: "0px", right: "0px" }}>
+      <div className={styles.bar} style={{ backgroundColor: "#0000C6", width: wid + "%", height: "inherit", position: "absolute", left: "0px", bottom: "0px", textAlign: "left" }}></div>
+      <p style={{ zIndex: "10000", position: "absolute", bottom: "-10px", right: "0px", color: "#FFFFFF", fontSize: "9px" }}>修为: {charState.myLevel || '0'}</p>
     </div>
 
   </div>
@@ -59,19 +59,19 @@ function MyManaInfo({
   dispatch,
 }) {
   const changeMana = (diff) => {
-    dispatch({ type: 'charInfo/changeMana' ,diff});
+    dispatch({ type: 'charInfo/changeMana', diff });
   }
-  const wid=charState.myMana*10;
+  const wid = charState.myMana * 10;
   return <div className={classNames(styles.MyCharInfo, className)}>
-    <div style={{position: "absolute",bottom: "23px",right: "0px"}}>
+    <div style={{ position: "absolute", bottom: "23px", right: "0px" }}>
       <Button.Group>
         <Button className={styles.MyManaBTN} onClick={() => changeMana(1)}>+</Button>
         <Button className={styles.MyManaBTN} onClick={() => changeMana(-1)}>-</Button>
       </Button.Group>
     </div>
-    <div style={{"background-color": "#666666",height: "11px",width: "50%",position: "absolute",bottom: "0px",right: "0px"}}>
-      <div className={styles.bar} style={{"background-color": "#00FFFF",width: wid+"%",height: "inherit",position: "absolute",left: "0px",bottom: "0px","text-align": "left"}}></div>
-      <p style={{"z-index": "10000",position: "absolute",bottom: "-10px",right: "0px","color": "#FFFFFF","font-size": "9px"}}>灵力: {charState.myMana || '0'}</p>
+    <div style={{ backgroundColor: "#666666", height: "11px", width: "50%", position: "absolute", bottom: "0px", right: "0px" }}>
+      <div className={styles.bar} style={{ backgroundColor: "#00FFFF", width: wid + "%", height: "inherit", position: "absolute", left: "0px", bottom: "0px", textAlign: "left" }}></div>
+      <p style={{ zIndex: "10000", position: "absolute", bottom: "-10px", right: "0px", color: "#FFFFFF", fontSize: "9px" }}>灵力: {charState.myMana || '0'}</p>
     </div>
 
   </div>
@@ -85,9 +85,9 @@ function MyCharInfo({
 }) {
   const height = 20;
   return <div className={classNames(styles.MyCharInfo, className)}>
-    <MyHealthInfo charState={charState} dispatch={dispatch} className={className}/>
-    <MyLevelInfo charState={charState} dispatch={dispatch} className={className}/>
-    <MyManaInfo charState={charState} dispatch={dispatch} className={className}/>
+    <MyHealthInfo charState={charState} dispatch={dispatch} className={className} />
+    <MyLevelInfo charState={charState} dispatch={dispatch} className={className} />
+    <MyManaInfo charState={charState} dispatch={dispatch} className={className} />
   </div>
 }
 

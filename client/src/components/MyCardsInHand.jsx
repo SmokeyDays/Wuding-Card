@@ -5,18 +5,19 @@ import classNames from 'classnames';
 import Card from './Card';
 import CardInfo from './CardInfo';
 import styles from './MyCardsInHand.less';
+import { useEffect } from 'react';
 
 
 // 一排正常卡片
-function CardsRow({ userCards, className, style, rowWidth, onShowInfo }) {
+function CardsRow({ userCards, className, style, rowWidth, onShowInfo, cardInfos }) {
 
   const onMouseOverCard = (e, index) => {
-    const {top, left} = e.currentTarget.getBoundingClientRect() || {}
+    const { top, left } = e.currentTarget.getBoundingClientRect() || {}
     onShowInfo({
       card: userCards[index],
       style: {
         left,
-        top: top-280,
+        top: top - 280,
       }
     });
   }
@@ -33,7 +34,7 @@ function CardsRow({ userCards, className, style, rowWidth, onShowInfo }) {
   >
     {userCards.map((item, index) => {
       const x = cardsTransform[index].x + pianyi;
-      if(item.card.name.length > 6) {
+      if (cardInfos[item.card] && cardInfos[item.card].name.length > 6) {
         pianyi += 12;
       }
       return (<div
@@ -46,7 +47,7 @@ function CardsRow({ userCards, className, style, rowWidth, onShowInfo }) {
       >
 
         <div className={styles.card}>
-          <MenuProvider id={`myCardsInHand_${item._id}`}>
+          <MenuProvider id={`myCardsInHand_${item._id}`} storeRef={false}>
             <Card
               card={item}
               key={item._id}
@@ -72,13 +73,20 @@ function MyCardsInHand({
 
   const [cardInfoProps, SET_cardInfoProps] = useState({});
 
-  const myCardsInHand = cardState.myCardsInHand//.slice(0, sliderValue)
+  const myCardsInHand = cardState.myCardsInHand; //.slice(0, sliderValue)
   const firstRow = myCardsInHand.slice(0, 30);
   const secondRow = myCardsInHand.slice(30, 60);
   const rowWidth = 900;
 
   const firstRowWidth = Math.round(rowWidth / 30 * (firstRow.length - 1)) + 150; // 展开宽度
   const secondRowWidth = Math.round(rowWidth / 30 * (secondRow.length - 1)) + 150; // 展开宽度
+
+  useEffect(() => {
+    dispatch({
+      type: 'card/loadInfos',
+      ids: myCardsInHand.map(item => item.card),
+    })
+  }, [myCardsInHand, dispatch]);
 
   // 设置卡片可见状态
   const setVisible = (_id, visible) => {
@@ -95,6 +103,8 @@ function MyCardsInHand({
     });
   }
 
+  const cardInfos = cardState.cardInfos
+
   return (
     <div
       className={classNames(styles.MyCardsInHand, className)}
@@ -106,6 +116,7 @@ function MyCardsInHand({
         userCards={firstRow}
         rowWidth={rowWidth}
         onShowInfo={SET_cardInfoProps}
+        cardInfos={cardInfos}
       />)}
       {secondRow.length > 0 && (<CardsRow
         className={styles.secondRow}
@@ -113,6 +124,7 @@ function MyCardsInHand({
         userCards={secondRow}
         rowWidth={rowWidth}
         onShowInfo={SET_cardInfoProps}
+        cardInfos={cardInfos}
       />)}
       <CardInfo {...cardInfoProps} />
       <div className={styles.menus}>
@@ -147,7 +159,7 @@ function MyCardsInHand({
           <Item
             onClick={() => moveToSpace('myCardsInGui', item)}
           >移至归墟</Item>
-          
+
 
         </Menu>)}
       </div>

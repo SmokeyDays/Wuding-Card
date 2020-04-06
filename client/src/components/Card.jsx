@@ -1,19 +1,21 @@
+import { useEffect } from 'react';
 import classNames from 'classnames';
 import { connect } from 'dva';
 import { Stage, Layer, Group, Rect, Text, Circle, Image } from 'react-konva';
 import styles from './Card.less';
 
-function FullCard({ card, width, height, bgColor, color }) {
+
+function FullCard({ width, height, bgColor, color, cardInfo }) {
   const otherTextStyle = {
     fontFamily: 'STSong',
     fill: color,
     fontSize: width * 0.06,
   }
-  const nameFontSize = Math.round(height * (Math.min(1 / (card.card.name.length * 2), 0.075)))
+  const nameFontSize = cardInfo ? Math.round(height * (Math.min(1 / (cardInfo.name.length * 2), 0.075))) : 0
 
 
   return (
-    <Group >
+    cardInfo ? <Group >
       <Rect
         x={0}
         y={0}
@@ -23,7 +25,7 @@ function FullCard({ card, width, height, bgColor, color }) {
       />
       {/* 名称 */}
       <Text
-        text={card.card.name}
+        text={cardInfo.name}
         fontFamily="STSong"
         fontStyle="bold"
         fill={color}
@@ -34,90 +36,90 @@ function FullCard({ card, width, height, bgColor, color }) {
       />
       <Text
         {...otherTextStyle}
-        text={`加权：${card.card.weight || ''}`}
+        text={`加权：${cardInfo.weight || ''}`}
         x={width * 0.2}
         y={width * 0.05}
       />
       <Text
         {...otherTextStyle}
-        text={`类别：${card.card.type || ''}`}
+        text={`类别：${cardInfo.type || ''}`}
         x={width * 0.55}
         y={width * 0.05}
       />
       <Text
         {...otherTextStyle}
-        text={`属性：${card.card.nature || ''}`}
+        text={`属性：${cardInfo.nature || ''}`}
         x={width * 0.2}
         y={width * 0.13}
       />
       <Text
         {...otherTextStyle}
-        text={`门派：${card.card.group || ''}`}
+        text={`门派：${cardInfo.group || ''}`}
         x={width * 0.55}
         y={width * 0.13}
       />
       <Text
         {...otherTextStyle}
-        text={`修为：${card.card.level || ''}`}
+        text={`修为：${cardInfo.level || ''}`}
         x={width * 0.2}
         y={width * 0.21}
       />
       <Text
         {...otherTextStyle}
-        text={`上场：${card.card.cost || ''}`}
+        text={`上场：${cardInfo.cost || ''}`}
         x={width * 0.55}
         y={width * 0.21}
       />
       <Text
         {...otherTextStyle}
-        text={`维持：${card.card.upkeep || ''}`}
+        text={`维持：${cardInfo.upkeep || ''}`}
         x={width * 0.2}
         y={width * 0.29}
       />
       <Text
         {...otherTextStyle}
-        text={`攻击：${card.card.attack || ''}`}
+        text={`攻击：${cardInfo.attack || ''}`}
         x={width * 0.55}
         y={width * 0.29}
       />
       <Text
         {...otherTextStyle}
-        text={`防御：${card.card.defense || ''}`}
+        text={`防御：${cardInfo.defense || ''}`}
         x={width * 0.2}
         y={width * 0.37}
       />
       <Text
         {...otherTextStyle}
-        text={`耐力：${card.card.endurance || ''}`}
+        text={`耐力：${cardInfo.endurance || ''}`}
         x={width * 0.55}
         y={width * 0.37}
       />
       <Text
         {...otherTextStyle}
-        text={`${card.card.condition || ''}\n${card.card.effect || ''}`}
+        text={`${cardInfo.condition || ''}\n${cardInfo.effect || ''}`}
         x={width * 0.2}
         y={width * 0.5}
         width={width * 0.75}
       />
-    </Group>
+    </Group> : null
   )
 }
 
-function MiniCard({ card, width, height, cardLogos }) {
+function MiniCard({ card, width, height, cardLogos, cardInfo }) {
   const nameFontSize = Math.round(width * 0.18)
   const visibleSize = Math.round(width * 0.14)
   const tagCircleRadius = Math.round(width * 0.14)
   const horizontalSize = [width * 0.3, width * 0.2]
-  const typeLogo = cardLogos[
-    card.card.type === "法器" ?
-     (card.card.attack > 0 ?
-      (card.card.defense > 0 ? "法器" : "攻击")
-      : (card.card.defense > 0 ? "防御" : "法器")) :
-    card.card.type];
+  const typeLogo = cardInfo ? cardLogos[
+    cardInfo.type === "法器" ?
+      (cardInfo.attack > 0 ?
+        (cardInfo.defense > 0 ? "法器" : "攻击")
+        : (cardInfo.defense > 0 ? "防御" : "法器")) :
+      cardInfo.type] : null;
 
   return (
 
-    <Group >
+    cardInfo ? <Group >
       <Rect
         x={0}
         y={0}
@@ -127,7 +129,7 @@ function MiniCard({ card, width, height, cardLogos }) {
       />
       {/* 名称 */}
       <Text
-        text={card.card.name}
+        text={cardInfo.name}
         fontFamily="STSong"
         fontStyle="bold"
         fill="#000"
@@ -145,22 +147,22 @@ function MiniCard({ card, width, height, cardLogos }) {
         x={width * 0.05}
         y={height - width * 0.05 - nameFontSize}
       />}
-      
+
       {/*类型*/}
-      {card.card.type ? <Image
+      {cardInfo.type ? <Image
         image={typeLogo}
         width={width * 0.3}
         height={width * 0.3}
         x={width * 0.65}
         y={height - width * 0.35}
-        alt={card.card.type}
+        alt={cardInfo.type}
       /> : null}
 
       {card.horizontal ? <Rect
         fill='#36a852'
         cornerRadius={4}
         x={width * 0.05}
-        y={width * 0.6 + horizontalSize[1] /4}
+        y={width * 0.6 + horizontalSize[1] / 4}
         width={horizontalSize[0]}
         height={horizontalSize[1]}
       /> : null}
@@ -169,7 +171,7 @@ function MiniCard({ card, width, height, cardLogos }) {
         fill='#fff'
         fontSize={10}
         x={width * 0.05}
-        y={width * 0.6 + horizontalSize[1] /4}
+        y={width * 0.6 + horizontalSize[1] / 4}
         width={horizontalSize[0]}
         height={horizontalSize[1]}
         align='center'
@@ -193,16 +195,16 @@ function MiniCard({ card, width, height, cardLogos }) {
         width={tagCircleRadius * 2}
         height={tagCircleRadius * 2}
       /> : null}
-    </Group>
+    </Group> : null
 
   )
 }
 
-function SideCard({ card, width, height }) {
+function SideCard({ card, width, height, cardInfo }) {
   const nameFontSize = Math.round(height * 0.075)
 
   return (
-    <Group >
+    cardInfo ? <Group >
       <Rect
         x={0}
         y={0}
@@ -212,24 +214,24 @@ function SideCard({ card, width, height }) {
       />
       {/* 名称 */}
       <Text
-        text={card.card.name.slice(0, 6)}
+        text={cardInfo.name.slice(0, 6)}
         fontFamily="STSong"
         fontStyle="bold"
         fill="#000"
         width={nameFontSize * 1.2}
         fontSize={nameFontSize}
         x={width * 0.05}
-        y={card.visible === 'EVERYONE' ? width * 0.05 + nameFontSize :width * 0.05}
+        y={card.visible === 'EVERYONE' ? width * 0.05 + nameFontSize : width * 0.05}
       />
       <Text
-        text={card.card.name.slice(6)}
+        text={cardInfo.name.slice(6)}
         fontFamily="STSong"
         fontStyle="bold"
         fill="#000"
         width={nameFontSize * 1.2}
         fontSize={nameFontSize}
         x={width * 0.05 + nameFontSize + 2}
-        y={card.visible === 'EVERYONE' ? width * 0.05 + nameFontSize :width * 0.05}
+        y={card.visible === 'EVERYONE' ? width * 0.05 + nameFontSize : width * 0.05}
       />
       {/* 可见状态 */}
       {card.visible === 'EVERYONE' && <Text
@@ -240,7 +242,7 @@ function SideCard({ card, width, height }) {
         x={width * 0.05}
         y={width * 0.05}
       />}
-    </Group>
+    </Group> : null
 
 
   )
@@ -284,10 +286,17 @@ function Card({
   viewType = 'mini',
   bgColor = '#fff',
   color = '#000',
-  cardState
+  cardState,
+  dispatch,
 }) {
+
+  useEffect(() => {
+    dispatch({type: 'card/loadInfos', ids: [card.card]})
+  }, [card, dispatch]);
+
   const height = width * 1.34;
   const cardLogos = cardState.cardLogos;
+  const cardInfo = cardState.cardInfos[card.card];
   return <div className={classNames(styles.Card, className)}>
     <Stage width={width} height={height}>
       <Layer>
@@ -295,13 +304,13 @@ function Card({
           <BackCard width={width} height={height} />
         ) : (
             viewType === 'full' ? (
-              <FullCard card={card} width={width} height={height} bgColor={bgColor} color={color} />
+              <FullCard card={card} width={width} height={height} bgColor={bgColor} color={color} cardInfo={cardInfo} />
             ) : (
                 viewType === 'mini' ? (
-                  <MiniCard card={card} width={width} height={height} bgColor={bgColor} color={color} cardLogos={cardLogos} />
+                  <MiniCard card={card} width={width} height={height} bgColor={bgColor} color={color} cardLogos={cardLogos} cardInfo={cardInfo} />
                 ) : (
                     viewType === 'side' ? (
-                      <SideCard card={card} width={width} height={height} bgColor={bgColor} color={color} />
+                      <SideCard card={card} width={width} height={height} bgColor={bgColor} color={color} cardInfo={cardInfo} />
                     ) : null
                   )
               )
@@ -311,4 +320,4 @@ function Card({
   </div>
 }
 
-export default connect(state => ({cardState: state.card }))(Card);
+export default connect(state => ({ cardState: state.card }))(Card);

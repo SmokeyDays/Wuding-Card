@@ -151,7 +151,7 @@ const MyCardsInStack = connect(state => ({
   const numClassName = myCardsInStack.length > 2 ? styles.numGt3 : styles[`numEq${myCardsInStack.length}`];
 
   return <div className={classNames(styles.MyCardsInStack, className)}>
-    <MenuProvider id="myCardsInStack">
+    <MenuProvider id="myCardsInStack" storeRef={false}>
       <div className={classNames(styles.wrap, numClassName)}>
         {_.reverse([...myCardsInStack]).map((item, index) => (
           <div

@@ -42,7 +42,7 @@ function CardsRow({ userCards, className, style, onShowInfo }) {
       >
 
         <div className={styles.card}>
-          <MenuProvider id={`myCardsInBattlefield_${item._id}`}>
+          <MenuProvider id={`myCardsInBattlefield_${item._id}`}  storeRef={false}>
             <Card
               card={item}
               key={item._id}

@@ -9,6 +9,7 @@ import 攻击 from "@/assets/logo/5攻击.png";
 import 防御 from "@/assets/logo/6防御.png";
 import 法器 from "@/assets/logo/7法器.png";
 import 万物 from "@/assets/logo/8万物.png";
+import { loadCardInfos } from '../services/card';
 
 export default {
   state: {
@@ -21,6 +22,7 @@ export default {
     myCardsInHandMax: 60,
     myCardsInBattlefieldMax: 15,
     cardLogos: {},
+    cardInfos: {},
   },
   reducers: {
     updateState(state, action) {
@@ -64,7 +66,7 @@ export default {
         }
       });
     },
-    updateCardLogos(state, {name, image}) {
+    updateCardLogos(state, { name, image }) {
       return update(state, {
         cardLogos: {
           [name]: {
@@ -72,12 +74,24 @@ export default {
           }
         }
       });
-    }
+    },
+    updateCardInfos(state, { cardInfos = [] }) {
+      const newState = update(state, {
+        cardInfos: {
+          $set: {
+            ...state.cardInfos,
+            ..._.keyBy(cardInfos, '_id'),
+          }
+        }
+      });
+      return newState
+    },
   },
   effects: {
     *fetchMyCardGroups({ autoSetMyCardsInStack }, { put, select }) {
-      const { myCardGroups } = yield window.g_axios.post('/card/my-card-groups');
+      const { myCardGroups, cardInfos } = yield window.g_axios.post('/card/my-card-groups');
       yield put({ type: 'updateState', payload: { myCardGroups } });
+      yield put({ type: 'updateCardInfos', cardInfos });
       if (autoSetMyCardsInStack) {
         yield put({ type: 'loadMyCardsInStackFromMyCardsGroup' });
         const state = yield select(state => state.card)
@@ -97,17 +111,22 @@ export default {
         }); // TODO: 删除
       }
     },
-    *loadAssets(action, {put, select} ) {
-      const cardLogos = {即时,触发,持续,法阵,攻击,防御,法器,万物};
+    *loadAssets(action, { put, select }) {
+      const cardLogos = { 即时, 触发, 持续, 法阵, 攻击, 防御, 法器, 万物 };
       const cardTypes = Object.keys(cardLogos)
       const oldCardLogos = yield select(state => state.card.cardLogos);
       for (let i = 0; i < cardTypes.length; i++) {
-        const name = `cardLogo${i+1}`;
-        if(!oldCardLogos[name]) {
+        const name = `cardLogo${i + 1}`;
+        if (!oldCardLogos[name]) {
           const image = yield loadImage(cardLogos[cardTypes[i]])
-          yield put({type: 'updateCardLogos', name: cardTypes[i], image})
+          yield put({ type: 'updateCardLogos', name: cardTypes[i], image })
         }
       }
+    },
+    *loadInfos({ ids = [] }, { put, call, select }) {
+      const oldCardInfos = yield select(state => state.card.cardInfos)
+      const cardInfos = yield call(loadCardInfos, ids.filter(id => !oldCardInfos[id]));
+      yield put({ type: 'updateCardInfos', cardInfos })
     }
   },
   subscriptions: {

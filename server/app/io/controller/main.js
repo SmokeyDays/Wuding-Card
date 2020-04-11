@@ -1,7 +1,11 @@
 'use strict';
 
 const { Controller } = require('egg');
-
+const gameState = {};
+function gameStateInit( roomId, userId){
+  if(gameState[roomId] == undefined){ gameState[roomId] = {}};
+  if(gameState[roomId][userId] == undefined){ gameState[roomId][userId] = { charInfo: {}, cardState: {}}};
+}
 module.exports = class MainController extends Controller {
   async login() {
     const { ctx, app } = this;
@@ -25,23 +29,34 @@ module.exports = class MainController extends Controller {
   }
   async changeHealth() {
     const { ctx } = this;
-    const { roomId, health } = ctx.args[0];
-    await ctx.socket.to(roomId).broadcast.emit('changeHealth-by-opposite', {
-      health,
+    const { roomId, userId, health } = ctx.args[0];
+    gameStateInit( roomId, userId.socketId );
+    gameState[roomId][userId.socketId].charInfo.health = health;
+    const { charInfo } = gameState[roomId][userId.socketId];
+    console.log(charInfo);
+    await ctx.socket.to(roomId).broadcast.emit('changeCharInfo-by-opposite', {
+      charInfo,
     });
   }
   async changeLevel() {
     const { ctx } = this;
-    const { roomId, level } = ctx.args[0];
-    await ctx.socket.to(roomId).broadcast.emit('changeLevel-by-opposite', {
-      level,
+    const { roomId, userId, level } = ctx.args[0];
+    gameStateInit( roomId, userId.socketId );
+    gameState[roomId][userId.socketId].charInfo.level = level;
+    const { charInfo } = gameState[roomId][userId.socketId];
+    console.log(charInfo);
+    await ctx.socket.to(roomId).broadcast.emit('changeCharInfo-by-opposite', {
+      charInfo,
     });
   }
   async changeMana() {
     const { ctx } = this;
-    const { roomId, mana } = ctx.args[0];
-    await ctx.socket.to(roomId).broadcast.emit('changeMana-by-opposite', {
-      mana,
+    const { roomId, userId, mana } = ctx.args[0];
+    gameStateInit( roomId, userId.socketId );
+    gameState[roomId][userId.socketId].charInfo.mana = mana;
+    const { charInfo } = gameState[roomId][userId.socketId];
+    await ctx.socket.to(roomId).broadcast.emit('changeCharInfo-by-opposite', {
+      charInfo,
     });
   }
 };
